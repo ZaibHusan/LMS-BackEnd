@@ -1,16 +1,28 @@
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 
-dotenv.config(); // Load .env file
+dotenv.config();
 
-// Reusable connection function
+let cachedConnection = null;
+
 const connectDB = async () => {
+  if (cachedConnection) {
+    return cachedConnection;
+  }
+
   try {
-    await mongoose.connect('mongodb+srv://mom:mom12345@mom.djubrn7.mongodb.net/course');
+    const connection = await mongoose.connect('mongodb+srv://mom:mom12345@mom.djubrn7.mongodb.net/course', {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      serverSelectionTimeoutMS: 5000,
+    });
+    
+    cachedConnection = connection;
     console.log("✅ MongoDB connected successfully!");
+    return connection;
   } catch (error) {
     console.error("❌ MongoDB connection failed:", error.message);
-    process.exit(1); // Stop app if connection fails
+    throw error; // Let the error be handled by the middleware
   }
 };
 
