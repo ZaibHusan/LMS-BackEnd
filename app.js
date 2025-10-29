@@ -12,16 +12,11 @@ app.use(express.json());
 
 // connecting to mongoDb 
 
-connectDB().then(() => {
+connectDB();
 
+app.use("/getin", getin);
+app.use("/getout", getout);
 
-    console.log("✅ MongoDB officialy connected successfully!");
-
-    app.use("/getin", getin);
-    app.use("/getout", getout);
-}).catch((error) => {
-    console.log(error)
-})
 
 
 app.get("/", (req, res) => {
