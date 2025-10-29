@@ -4,6 +4,7 @@ import cors from "cors"
 import getout from "./routes/getout.js";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import Course from "./Schema/schema.js";
 
 
 const app = express();
@@ -37,6 +38,15 @@ app.use("/getin", getin);
 app.use("/getout", getout);
 app.get("/", (req, res) => {
     res.send("Hello World");
+})
+app.post("/", async (req, res) => {
+    try {
+        const courses = await Course.find();
+        res.json(courses)
+
+    } catch (error) {
+        res.json({ message: error.message })
+    }
 })
 
 
