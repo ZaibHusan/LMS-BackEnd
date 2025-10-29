@@ -15,15 +15,17 @@ app.use(express.json());
 connectDB().then(() => {
 
 
-console.log("✅ MongoDB officialy connected successfully!");
+    console.log("✅ MongoDB officialy connected successfully!");
 
     app.use("/getin", getin);
     app.use("/getout", getout);
-    app.get("/", (req, res) => {
-        res.send("Hello World");
-    })
-}).catch((error) =>{
+}).catch((error) => {
     console.log(error)
+})
+
+
+app.get("/", (req, res) => {
+    res.send("Hello World");
 })
 
 app.listen(3000, () => {
