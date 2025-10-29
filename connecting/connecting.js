@@ -11,10 +11,17 @@ const connectDB = async () => {
   }
 
   try {
+    mongoose.set('bufferCommands', false);
+    
     const connection = await mongoose.connect('mongodb+srv://mom:mom12345@mom.djubrn7.mongodb.net/course', {
       useNewUrlParser: true,
       useUnifiedTopology: true,
-      serverSelectionTimeoutMS: 5000,
+      bufferCommands: false,
+      serverSelectionTimeoutMS: 15000,
+      socketTimeoutMS: 30000,
+      maxPoolSize: 10,
+      maxIdleTimeMS: 30000,
+      connectTimeoutMS: 15000,
     });
     
     cachedConnection = connection;
@@ -22,7 +29,8 @@ const connectDB = async () => {
     return connection;
   } catch (error) {
     console.error("❌ MongoDB connection failed:", error.message);
-    throw error; // Let the error be handled by the middleware
+    cachedConnection = null;
+    throw error;
   }
 };
 
