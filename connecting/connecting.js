@@ -6,7 +6,7 @@ dotenv.config(); // Load .env file
 // Reusable connection function
 const connectDB = async () => {
   try {
-    await mongoose.connect(process.env.MONGO_URI);
+    await mongoose.connect('mongodb+srv://mom:mom12345@mom.djubrn7.mongodb.net/course');
     console.log("✅ MongoDB connected successfully!");
   } catch (error) {
     console.error("❌ MongoDB connection failed:", error.message);

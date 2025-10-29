@@ -16,9 +16,6 @@ await connectDB();
 
 app.use("/getin", getin);
 app.use("/getout", getout);
-
-
-
 app.get("/", (req, res) => {
     res.send("Hello World");
 })
