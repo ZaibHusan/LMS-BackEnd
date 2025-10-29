@@ -12,7 +12,7 @@ app.use(express.json());
 
 // connecting to mongoDb 
 
-connectDB();
+await connectDB();
 
 app.use("/getin", getin);
 app.use("/getout", getout);
