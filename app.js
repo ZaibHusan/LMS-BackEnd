@@ -7,28 +7,23 @@ import getout from "./routes/getout.js";
 const app = express();
 
 
+app.use(cors())
+app.use(express.json());
 
 // connecting to mongoDb 
 
-connectDB();
-
-app.use(cors())
-app.use(express.json());
-app.use("/getin", getin);
-app.use("/getout", getout);
+connectDB().then(() => {
 
 
-app.get("/", (req, res) => {
-    res.send("Hello World");
+console.log("✅ MongoDB officialy connected successfully!");
+
+    app.use("/getin", getin);
+    app.use("/getout", getout);
+    app.get("/", (req, res) => {
+        res.send("Hello World");
+    })
+}).catch((error) =>{
+    console.log(error)
 })
 
 
-
-
-
-
-
-
-app.listen(3000, () => {
-    console.log('Server is running on port 3000');
-});
