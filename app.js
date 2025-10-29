@@ -23,7 +23,13 @@ const connect = async () => {
         console.error("Error connecting to MongoDB:", error);
     }
 };
-connect();
+
+// lets create a middle ware to fist connect to mongoose
+
+app.use(async(req, res, next) => {
+    await connect();
+    next();
+});
 
 
 
